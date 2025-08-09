@@ -1,6 +1,8 @@
 {
   "functions": {
-    "app/api/**/*.ts": { "runtime": "nodejs", "maxDuration": 60 },
-    "app/api/**/*.js": { "runtime": "nodejs", "maxDuration": 60 }
+    "app/api/**": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 60
+    }
   }
 }
