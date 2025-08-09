@@ -27,9 +27,6 @@ function abs(u?:string){ if(!u) return ""; if(/^https?:\/\//i.test(u)) return u;
 
 function collectArticleLinks($:cheerio.CheerioAPI): string[] {
   const links = new Set<string>();
-// limit for serverless deadline
-links = Array.isArray(links) ? links.slice(0,8) : links;
-
   const sels = [
     `a[href^="${BASE}/article/"]`,'a[href^="/article/"]',
     `a[href^="${BASE}/news/"]`,'a[href^="/news/"]',

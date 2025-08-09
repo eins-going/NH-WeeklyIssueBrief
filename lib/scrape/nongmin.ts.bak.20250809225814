@@ -1,16 +1,4 @@
 import * as cheerio from "cheerio";
-
-// --- injected: fetchWithTimeout (10s default)
-async function fetchWithTimeout(url: string, opts: any = {}, ms = 10000) {
-  const c = new AbortController();
-  const id = setTimeout(() => c.abort(), ms);
-  try {
-    const res = await fetchWithTimeout(url, { ...opts, signal: c.signal, headers: { "user-agent": "nh-brief/1.0", ...(opts.headers||{}) } });
-    if (!res.ok) throw new Error("HTTP "+res.status);
-    return res;
-  } finally { clearTimeout(id); }
-}
-
 import { JSDOM } from "jsdom";
 import { Readability } from "@mozilla/readability";
 import { fetchHTML, sleep } from "../http";
@@ -27,9 +15,6 @@ function abs(u?:string){ if(!u) return ""; if(/^https?:\/\//i.test(u)) return u;
 
 function collectArticleLinks($:cheerio.CheerioAPI): string[] {
   const links = new Set<string>();
-// limit for serverless deadline
-links = Array.isArray(links) ? links.slice(0,8) : links;
-
   const sels = [
     `a[href^="${BASE}/article/"]`,'a[href^="/article/"]',
     `a[href^="${BASE}/news/"]`,'a[href^="/news/"]',
