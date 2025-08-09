@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 
 // --- injected: fetchWithTimeout (10s default)
-async function fetchWithTimeout(url: string, opts: any = {}, ms = 10000) : Promise<any> {
+async function fetchWithTimeout(url: string, opts: any = {}, ms = 10000) {
   const c = new AbortController();
   const id = setTimeout(() => c.abort(), ms);
   try {
@@ -26,7 +26,11 @@ function listUrl(p:number){ return `${BASE}/list/10?page=${p}`; }
 function abs(u?:string){ if(!u) return ""; if(/^https?:\/\//i.test(u)) return u; if(u.startsWith("//")) return "https:"+u; if(u.startsWith("/")) return BASE+u; return u; }
 
 function collectArticleLinks($:cheerio.CheerioAPI): string[] {
-  const links = new Set<string>();  const sels = [
+  const links = new Set<string>();
+// limit for serverless deadline
+links = Array.isArray(links) ? links.slice(0,8) : links;
+
+  const sels = [
     `a[href^="${BASE}/article/"]`,'a[href^="/article/"]',
     `a[href^="${BASE}/news/"]`,'a[href^="/news/"]',
     'a[href*="articleView.html"]','.list a[href^="/article/"]',
