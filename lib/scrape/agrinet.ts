@@ -3,7 +3,7 @@ import { fetchHTML } from "../http";
 import { cleanHtml, pickTitle } from "../text";
 import { NewsItem } from "../types";
 
-const BASE = "https://www.agrinet.co.kr"\;
+const BASE = "https://www.agrinet.co.kr";
 const SRC = "농어민신문" as const;
 
 function listUrl(page:number){ return `${BASE}/news/articleList.html?page=${page}&view_type=sm`; }

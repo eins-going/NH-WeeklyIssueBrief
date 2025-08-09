@@ -6,7 +6,7 @@ import { cleanHtml, pickTitle } from "../text";
 import { toISOFromKoreanDate } from "../date";
 import { NewsItem } from "../types";
 
-const BASE = "https://www.nongmin.com"\;
+const BASE = "https://www.nongmin.com";
 const SRC = "농민신문" as const;
 const DEBUG = process.env.SCRAPE_DEBUG === "1";
 

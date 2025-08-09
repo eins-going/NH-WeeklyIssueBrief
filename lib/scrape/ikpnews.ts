@@ -3,7 +3,7 @@ import { fetchHTML } from "../http";
 import { cleanHtml, pickTitle } from "../text";
 import { NewsItem } from "../types";
 
-const BASE = "https://www.ikpnews.net"\;
+const BASE = "https://www.ikpnews.net";
 const SRC = "농정신문" as const;
 
 function listUrl(page:number){ return `${BASE}/news/articleList.html?page=${page}&view_type=sm`; }
