@@ -114,12 +114,10 @@ function readabilityExtract(html: string, url: string) {
   const dom = new JSDOM(html, { url });
   const article = new Readability(dom.window.document).parse();
   if (!article) return { content: "", images: [] as string[] };
-  const content = article.content ?? "";
-
-  const $ = cheerio.load(content);
+  const $ = cheerio.load(article.content);
   const imgs: string[] = [];
   $("img").each((_,img)=>{ const s = $(img).attr("src"); if (s && !imgs.includes(s)) imgs.push(s); });
-  return { content, images: imgs.slice(0,6) };
+  return { content: article.content, images: imgs.slice(0,6) };
 }
 
 function extractImages($:cheerio.CheerioAPI, scope?: cheerio.Cheerio<any>): string[] {
